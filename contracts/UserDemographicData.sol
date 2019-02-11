@@ -41,6 +41,11 @@ contract UserDemographicData {
   event logUpdateContactInfo (uint indexed userID, uint index, string _userName, string _phoneNumber, string _userAddress, string _emailId);
   event logDeleteUser(uint indexed userID, uint index);
 
+  constructor () public {
+    addDemographyInfo(1,"user1","1st April 1990","male","bangalore","indian","1111111111","bangalore","user1@gmail.com");
+    addDemographyInfo(2,"user2","31/01/2050","female","california","american","2222222222","america","user2@gmail.com");
+  }
+
   function isUser(uint userID) public view returns(bool isIndeed) {
     if(userIndex.length == 0) return false;
     return (userIndex[userMapping[userID].index] == userID);

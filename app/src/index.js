@@ -1,5 +1,5 @@
 import Web3 from "web3";
-import metaCoinArtifact from "../../build/contracts/MetaCoin.json";
+import userDemographicData from "../../build/contracts/UserDemographicData.json";
 
 const App = {
   web3: null,
@@ -12,9 +12,9 @@ const App = {
     try {
       // get contract instance
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = metaCoinArtifact.networks[networkId];
+      const deployedNetwork = userDemographicData.networks[networkId];
       this.meta = new web3.eth.Contract(
-        metaCoinArtifact.abi,
+        userDemographicData.abi,
         deployedNetwork.address,
       );
 
@@ -22,32 +22,100 @@ const App = {
       const accounts = await web3.eth.getAccounts();
       this.account = accounts[0];
 
-      this.refreshBalance();
+      this.refreshUserCount();
     } catch (error) {
       console.error("Could not connect to contract or chain.");
     }
   },
 
-  refreshBalance: async function() {
-    const { getBalance } = this.meta.methods;
-    const balance = await getBalance(this.account).call();
+  refreshUserCount: async function() {
+    const { getUserCount } = this.meta.methods;
+    const usercount = await getUserCount().call();
 
-    const balanceElement = document.getElementsByClassName("balance")[0];
-    balanceElement.innerHTML = balance;
+    const userCountElement = document.getElementsByClassName("usercount")[0];
+    userCountElement.innerHTML = usercount;
   },
 
-  sendCoin: async function() {
-    const amount = parseInt(document.getElementById("amount").value);
-    const receiver = document.getElementById("receiver").value;
+  addDemographyInfo: async function() {
+    const userid = document.getElementById("id").value;
+    const userName = document.getElementById("name").value;
+    const dob = document.getElementById("dob").value;
+    const gender = document.getElementById("gender").value;
+    const pob = document.getElementById("pob").value;
+    const ethnicity = document.getElementById("ethnicity").value;
+    const phoneNumber = document.getElementById("phoneNumber").value;
+    const address = document.getElementById("address").value;
+    const emailId = document.getElementById("emailId").value;
 
     this.setStatus("Initiating transaction... (please wait)");
 
-    const { sendCoin } = this.meta.methods;
-    await sendCoin(receiver, amount).send({ from: this.account });
+    const { addDemographyInfo } = this.meta.methods;
+    await addDemographyInfo(userid, userName, dob, gender, pob, ethnicity, phoneNumber, address, emailId).send({ from: this.account });
 
     this.setStatus("Transaction complete!");
-    this.refreshBalance();
+    this.refreshUserCount();
   },
+
+  getDemographyInfo: function() {
+
+    const id = document.getElementById('id2').value;
+
+    this.setStatus('Fetching User Demographic Info... (please wait)')
+
+    let response
+    this.meta.deployed().then(function (instance) {
+      response = instance
+      return response.getDemographyInfo.call(id, { from: this.account });
+    }).then(function (value) {
+      console.log(value); // should be an array
+
+      const dob = document.getElementById('dob2')
+      dob.innerHTML = value[0]
+
+      const gender = document.getElementById('gender2')
+      gender.innerHTML = value[1]
+
+      const pob = document.getElementById('pob2')
+      pob.innerHTML = value[2]
+
+      const ethnicity = document.getElementById('ethnicity2')
+      ethnicity.innerHTML = value[3]
+
+      this.setStatus('User Demographic Info Fetched!')
+    }).catch(function (e) {
+      console.log(e)
+      self.setStatus('Error getting lake records; see log.')
+    })
+
+    let response
+    this.meta.deployed().then(function (instance) {
+      response = instance
+      return response.getContactInfo.call(id, { from: this.account });
+    }).then(function (value) {
+      console.log(value); // should be an array
+
+      const name = document.getElementById('name2')
+      name.innerHTML = value[0]
+
+      const phnNumber = document.getElementById('phoneNumber2')
+      phnNumber.innerHTML = value[1]
+
+      const address = document.getElementById('address2')
+      address.innerHTML = value[2]
+
+      const emailId = document.getElementById('emailId2')
+      emailId.innerHTML = value[3]
+
+      this.setStatus('User Contact Info Fetched!')
+    }).catch(function (e) {
+      console.log(e)
+      self.setStatus('Error getting lake records; see log.')
+    })
+  },
+
+  /************************************
+  Changes Till this point
+  *************************************/
 
   setStatus: function(message) {
     const status = document.getElementById("status");

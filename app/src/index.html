@@ -1,37 +1,106 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>MetaCoin | Truffle Webpack Demo w/ Frontend</title>
-  </head>
-  <style>
-    input {
-      display: block;
-      margin-bottom: 12px;
-    }
-  </style>
-  <body>
-    <h1>MetaCoin — Example Truffle Dapp</h1>
-    <p>You have <strong class="balance">loading...</strong> META</p>
+<head>
+  <title>User Demographic Data DApp</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <script src="./app.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h1 class="text-center">User Demographic Records</h1>
+          <hr/>
+          <br/>
+        </div>
+        <h2>You have <strong class="usercount">loading...</strong> Users</h2>
+        <br>
+        <br>
+        <h2>Insert User Records in Blockchain</h2>
+        <br>
+        <form>
+          <div class="form-group">
+            <label for="UserId"><b>UserID</b></label>
+            <input type="number" class="form-control" id="id" placeholder="Enter  UserID" name="UserID" required>
+          </div>
+          <div class="form-group">
+            <label for="userName"><b>User Name</b></label>
+            <input type="text" class="form-control" id="name" placeholder="Enter User Name" name="User Name" required>
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth"><b>Date of Birth</b></label>
+            <input type="text" class="form-control" id="dob" placeholder="Enter Date Of Birth" name="DOB" required>
+          </div>
+          <div class="form-group">
+            <label for="Gender"><b>Gender</b></label>
+            <input type="text" class="form-control" id="gender" placeholder="Enter the Gender" name="Gender" required>
+          </div>
+          <div class="form-group">
+            <label for="placeOfBrith"><b>Place of Birth</b></label>
+            <input type="text" class="form-control" id="pob" placeholder="Enter Place Of Birth" name="Place of Birth" required>
+          </div>
+          <div class="form-group">
+            <label for="Ethnicity"><b>Ethnicity</b></label>
+            <input type="text" class="form-control" id="ethnicity" placeholder="Enter Ethnicity" name="Ethnicity" required>
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber"><b>Phone Number</b></label>
+            <input type="text" class="form-control" id="phoneNumber" placeholder="Enter Phone Number" name="Phone Number" required>
+          </div>
+          <div class="form-group">
+            <label for="mailingAddress"><b>Mailing Address</b></label>
+            <input type="text" class="form-control" id="address" placeholder="Enter Mailing Address" name="Mailing Address" required>
+          </div>
+          <div class="form-group">
+            <label for="emailId"><b>EmailID</b></label>
+            <input type="text" class="form-control" id="emailId" placeholder="Enter EmailID" name="EmailID" required>
+          </div>
 
-    <h1>Send MetaCoin</h1>
+          <button type="button" class="btn btn-primary" id="setvalue" onclick="App.addDemographyInfo()">Submit User Records</button>
+        </form>
+        <br />
+        <br />
+        <h2>Get User Records from Blockchain</h2>
+        <br>
+        <form>
+          <div class="form-group">
+            <label for="UserId"><b>UserID</b></label>
+            <input type="number" class="form-control" id="id2" placeholder="Enter UserID" name="UserID" required>
+          </div>
+          <div class="form-group">
+            <tr><td><b><label for="userName">User Name</label></td><td>:</td></b><td><span span id="name2"></span></td></tr>
+          </div>
+          <div class="form-group">
+            <tr><td><b><label for="dateOfBirth">Date Of Birth</label></td><td>:</td></b><td><span span id="dob2"></span></td></tr>
+          </div>
+          <div class="form-group">
+            <tr><td><b><label for="Gender">Gender</label></td><td>:</td></b><td><span span id="gender2"></span></td></tr>
+          </div>
+          <div class="form-group">
+            <tr><td><b><label for="placeOfBirth">Place OF Birth</label></td><td>:</td></b><td><span span id="pob2"></span></td></tr>
+          </div>
+          <div class="form-group">
+            <tr><td><b><label for="ethnicity">Ethnicity</label></td><td>:</td></b><td><span span id="ethnicity2"></span></td></tr>
+          </div>
+          <div class="form-group">
+            <tr><td><b><label for="phoneNumber">Phone Number</label></td><td>:</td></b><td><span span id="phoneNumber2"></span></td></tr>
+          </div>
+          <div class="form-group">
+            <tr><td><b><label for="mailingAddress">Mailing Address</label></td><td>:</td></b><td><span span id="address2"></span></td></tr>
+          </div>
+          <div class="form-group">
+            <tr><td><b><label for="emailId">Email ID</label></td><td>:</td></b><td><span span id="emailId2"></span></td></tr>
+          </div>
 
-    <label for="amount">Amount:</label>
-    <input type="text" id="amount" placeholder="e.g. 95" />
-
-    <label for="receiver">To address:</label>
-    <input
-      type="text"
-      id="receiver"
-      placeholder="e.g. 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"
-    />
-
-    <button onclick="App.sendCoin()">Send MetaCoin</button>
-
-    <p id="status"></p>
-    <p>
-      <strong>Hint:</strong> open the browser developer console to view any
-      errors and warnings.
-    </p>
-    <script src="index.js"></script>
-  </body>
+           <button type="button" class="btn btn-primary" id="getvalue" onclick="App.getLakeRecords()">Get User Record</button>
+        </form>
+        <br />
+        <br />
+        <span id="status"></span>
+        <br>
+      </div>
+    </div>
+  </div>
+</body>
 </html>
