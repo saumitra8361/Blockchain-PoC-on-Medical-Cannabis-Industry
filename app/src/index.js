@@ -87,10 +87,10 @@ const App = {
       self.setStatus('Error getting lake records; see log.')
     })
 
-    let response
+    let result
     this.meta.deployed().then(function (instance) {
-      response = instance
-      return response.getContactInfo.call(id, { from: this.account });
+      result = instance
+      return result.getContactInfo.call(id, { from: this.account });
     }).then(function (value) {
       console.log(value); // should be an array
 
@@ -136,7 +136,7 @@ window.addEventListener("load", function() {
     );
     // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
     App.web3 = new Web3(
-      new Web3.providers.HttpProvider("http://127.0.0.1:9545"),
+      new Web3.providers.HttpProvider("http://127.0.0.1:8543"),
     );
   }
 
