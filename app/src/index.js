@@ -47,6 +47,8 @@ const App = {
     const address = document.getElementById("address").value;
     const emailId = document.getElementById("emailId").value;
 
+    console.log(userid);
+
     this.setStatus("Initiating transaction... (please wait)");
 
     const { addDemographyInfo } = this.meta.methods;
@@ -56,19 +58,14 @@ const App = {
     this.refreshUserCount();
   },
 
-  getDemographyInfo: function() {
+  getDemographyInfo: async function() {
 
     const id = document.getElementById('id2').value;
 
     this.setStatus('Fetching User Demographic Info... (please wait)')
 
-    let response
-    this.meta.deployed().then(function (instance) {
-      response = instance
-      return response.getDemographyInfo.call(id, { from: this.account });
-    }).then(function (value) {
-      console.log(value); // should be an array
-
+    const { getDemographyInfo } = this.meta.methods;
+    getDemographyInfo(id).call().then(function (value) {
       const dob = document.getElementById('dob2')
       dob.innerHTML = value[0]
 
@@ -80,20 +77,10 @@ const App = {
 
       const ethnicity = document.getElementById('ethnicity2')
       ethnicity.innerHTML = value[3]
-
-      this.setStatus('User Demographic Info Fetched!')
-    }).catch(function (e) {
-      console.log(e)
-      self.setStatus('Error getting lake records; see log.')
     })
 
-    let result
-    this.meta.deployed().then(function (instance) {
-      result = instance
-      return result.getContactInfo.call(id, { from: this.account });
-    }).then(function (value) {
-      console.log(value); // should be an array
-
+    const { getContactInfo } = this.meta.methods;
+    getContactInfo(id).call().then(function (value) {
       const name = document.getElementById('name2')
       name.innerHTML = value[0]
 
@@ -105,17 +92,10 @@ const App = {
 
       const emailId = document.getElementById('emailId2')
       emailId.innerHTML = value[3]
-
-      this.setStatus('User Contact Info Fetched!')
-    }).catch(function (e) {
-      console.log(e)
-      self.setStatus('Error getting lake records; see log.')
     })
-  },
 
-  /************************************
-  Changes Till this point
-  *************************************/
+    this.setStatus('User Demographic Info Fetched!')
+  },
 
   setStatus: function(message) {
     const status = document.getElementById("status");
@@ -132,7 +112,7 @@ window.addEventListener("load", function() {
     window.ethereum.enable(); // get permission to access accounts
   } else {
     console.warn(
-      "No web3 detected. Falling back to http://127.0.0.1:9545. You should remove this fallback when you deploy live",
+      "No web3 detected. Falling back to http://127.0.0.1:8543. You should remove this fallback when you deploy live",
     );
     // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
     App.web3 = new Web3(
