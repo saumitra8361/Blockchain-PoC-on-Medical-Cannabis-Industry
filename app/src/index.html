@@ -12,11 +12,8 @@
         <div>
           <h1 class="text-center">User Demographic Records</h1>
           <hr/>
-          <br/>
         </div>
         <h2>You have <strong class="usercount">loading...</strong> User Records</h2>
-        <br>
-        <br>
         <h2>Insert User Records in Blockchain</h2>
         <br>
         <form>
@@ -62,38 +59,90 @@
         <br />
         <br />
         <h2>Get User Records from Blockchain</h2>
+        <form>
+          <div class="form-group">
+            <label for="UserId"><b>UserID</b></label>
+            <input type="number" class="form-control" id="getId" placeholder="Enter UserID" name="UserID" required>
+          </div>
+          <div class="form-group">
+            <tr><td><b><label for="userName">User Name</label></td><td>:</td></b><td><span span id="getName"></span></td></tr>
+          </div>
+          <div class="form-group">
+            <tr><td><b><label for="dateOfBirth">Date Of Birth</label></td><td>:</td></b><td><span span id="getDob"></span></td></tr>
+          </div>
+          <div class="form-group">
+            <tr><td><b><label for="Gender">Gender</label></td><td>:</td></b><td><span span id="getGender"></span></td></tr>
+          </div>
+          <div class="form-group">
+            <tr><td><b><label for="placeOfBirth">Place OF Birth</label></td><td>:</td></b><td><span span id="getPob"></span></td></tr>
+          </div>
+          <div class="form-group">
+            <tr><td><b><label for="ethnicity">Ethnicity</label></td><td>:</td></b><td><span span id="getEthnicity"></span></td></tr>
+          </div>
+          <div class="form-group">
+            <tr><td><b><label for="phoneNumber">Phone Number</label></td><td>:</td></b><td><span span id="getPhoneNumber"></span></td></tr>
+          </div>
+          <div class="form-group">
+            <tr><td><b><label for="mailingAddress">Mailing Address</label></td><td>:</td></b><td><span span id="getAddress"></span></td></tr>
+          </div>
+          <div class="form-group">
+            <tr><td><b><label for="emailId">Email ID</label></td><td>:</td></b><td><span span id="getEmailId"></span></td></tr>
+          </div>
+
+           <button type="button" class="btn btn-primary" id="getvalue" onclick="App.getDemographyInfo()">Get User Record</button>
+        </form>
+        <br />
+        <h2>Delete User Records from Blockchain</h2>
+        <form>
+          <div class="form-group">
+            <label for="UserId"><b>UserID</b></label>
+            <input type="number" class="form-control" id="deleteId" placeholder="Enter UserID" name="UserID" required>
+          </div>
+
+           <button type="button" class="btn btn-primary" id="deleteRecord" onclick="App.deleteDemographyInfo()">Delete User Record</button>
+        </form>
+        <br />
+        <h2>Update User Records in Blockchain</h2>
         <br>
         <form>
           <div class="form-group">
             <label for="UserId"><b>UserID</b></label>
-            <input type="number" class="form-control" id="id2" placeholder="Enter UserID" name="UserID" required>
+            <input type="number" class="form-control" id="updateId" placeholder="Enter  UserID" name="UserID" required>
           </div>
           <div class="form-group">
-            <tr><td><b><label for="userName">User Name</label></td><td>:</td></b><td><span span id="name2"></span></td></tr>
+            <label for="userName"><b>User Name</b></label>
+            <input type="text" class="form-control" id="updateName" placeholder="Enter User Name" name="User Name" required>
           </div>
           <div class="form-group">
-            <tr><td><b><label for="dateOfBirth">Date Of Birth</label></td><td>:</td></b><td><span span id="dob2"></span></td></tr>
+            <label for="dateOfBirth"><b>Date of Birth</b></label>
+            <input type="text" class="form-control" id="updateDob" placeholder="Enter Date Of Birth" name="DOB" required>
           </div>
           <div class="form-group">
-            <tr><td><b><label for="Gender">Gender</label></td><td>:</td></b><td><span span id="gender2"></span></td></tr>
+            <label for="Gender"><b>Gender</b></label>
+            <input type="text" class="form-control" id="updateGender" placeholder="Enter the Gender" name="Gender" required>
           </div>
           <div class="form-group">
-            <tr><td><b><label for="placeOfBirth">Place OF Birth</label></td><td>:</td></b><td><span span id="pob2"></span></td></tr>
+            <label for="placeOfBrith"><b>Place of Birth</b></label>
+            <input type="text" class="form-control" id="updatePob" placeholder="Enter Place Of Birth" name="Place of Birth" required>
           </div>
           <div class="form-group">
-            <tr><td><b><label for="ethnicity">Ethnicity</label></td><td>:</td></b><td><span span id="ethnicity2"></span></td></tr>
+            <label for="Ethnicity"><b>Ethnicity</b></label>
+            <input type="text" class="form-control" id="updateEthnicity" placeholder="Enter Ethnicity" name="Ethnicity" required>
           </div>
           <div class="form-group">
-            <tr><td><b><label for="phoneNumber">Phone Number</label></td><td>:</td></b><td><span span id="phoneNumber2"></span></td></tr>
+            <label for="phoneNumber"><b>Phone Number</b></label>
+            <input type="text" class="form-control" id="updatePhoneNumber" placeholder="Enter Phone Number" name="Phone Number" required>
           </div>
           <div class="form-group">
-            <tr><td><b><label for="mailingAddress">Mailing Address</label></td><td>:</td></b><td><span span id="address2"></span></td></tr>
+            <label for="mailingAddress"><b>Mailing Address</b></label>
+            <input type="text" class="form-control" id="updateAddress" placeholder="Enter Mailing Address" name="Mailing Address" required>
           </div>
           <div class="form-group">
-            <tr><td><b><label for="emailId">Email ID</label></td><td>:</td></b><td><span span id="emailId2"></span></td></tr>
+            <label for="emailId"><b>EmailID</b></label>
+            <input type="text" class="form-control" id="updateEmailId" placeholder="Enter EmailID" name="EmailID" required>
           </div>
 
-           <button type="button" class="btn btn-primary" id="getvalue" onclick="App.getDemographyInfo()">Get User Record</button>
+          <button type="button" class="btn btn-primary" id="updatevalue" onclick="App.updateDemographyInfo()">Submit User Records</button>
         </form>
         <br />
         <br />

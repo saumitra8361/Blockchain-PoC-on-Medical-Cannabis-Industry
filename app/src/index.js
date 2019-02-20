@@ -55,9 +55,10 @@ const App = {
 /*
     addDemographyInfo(userid, userName, dob, gender, pob, ethnicity, phoneNumber, address, emailId).estimateGas({gas:350000}, function(error, gasAmount){
       console.log(gasAmount);
-      if(gasAmount >= 2100000)
+      console.log(error);
+      if(gasAmount >= 350000)
         console.log('Method ran out of gas');
-      if(gasAmount <= 2100000)
+      if(gasAmount < 350000)
         console.log('Method is in gas limit');
     });
 */
@@ -69,41 +70,95 @@ const App = {
 
   getDemographyInfo: async function() {
 
-    const id = document.getElementById('id2').value;
+    const id = document.getElementById('getId').value;
 
     this.setStatus('Fetching User Demographic Info... (please wait)')
 
     const { getDemographyInfo } = this.meta.methods;
     getDemographyInfo(id).call().then(function (value) {
-      const dob = document.getElementById('dob2')
+      const dob = document.getElementById('getDob')
       dob.innerHTML = value[0]
 
-      const gender = document.getElementById('gender2')
+      const gender = document.getElementById('getGender')
       gender.innerHTML = value[1]
 
-      const pob = document.getElementById('pob2')
+      const pob = document.getElementById('getPob')
       pob.innerHTML = value[2]
 
-      const ethnicity = document.getElementById('ethnicity2')
+      const ethnicity = document.getElementById('getEthnicity')
       ethnicity.innerHTML = value[3]
     })
 
     const { getContactInfo } = this.meta.methods;
     getContactInfo(id).call().then(function (value) {
-      const name = document.getElementById('name2')
+      const name = document.getElementById('getName')
       name.innerHTML = value[0]
 
-      const phnNumber = document.getElementById('phoneNumber2')
+      const phnNumber = document.getElementById('getPhoneNumber')
       phnNumber.innerHTML = value[1]
 
-      const address = document.getElementById('address2')
+      const address = document.getElementById('getAddress')
       address.innerHTML = value[2]
 
-      const emailId = document.getElementById('emailId2')
+      const emailId = document.getElementById('getEmailId')
       emailId.innerHTML = value[3]
     })
 
     this.setStatus('User Demographic Info Fetched!')
+  },
+
+  updateDemographyInfo: async function() {
+    const userid = document.getElementById("updateId").value;
+    const userName = document.getElementById("updateName").value;
+    const dob = document.getElementById("updateDob").value;
+    const gender = document.getElementById("updateGender").value;
+    const pob = document.getElementById("updatePob").value;
+    const ethnicity = document.getElementById("updateEthnicity").value;
+    const phoneNumber = document.getElementById("updatePhoneNumber").value;
+    const address = document.getElementById("updateAddress").value;
+    const emailId = document.getElementById("updateEmailId").value;
+
+    this.setStatus("Initiating Data Update transaction... (please wait)");
+
+    const { updateDemographicInfo } = this.meta.methods;
+
+/* 'estimateGas()' web3.js: to find out gas consumption by 'updateContactInfo' while adding records/data into blockchain */
+/*   updateContactInfo(userid, dob, gender, pob, ethnicity).estimateGas({gas:110000}, function(error, gasAmount){
+       console.log(gasAmount);
+       if(gasAmount >= 110000)
+         console.log('Method ran out of gas');
+       if(gasAmount < 110000)
+         console.log('Method is in gas limit');
+   });
+*/
+    await updateDemographicInfo(userid, dob, gender, pob, ethnicity).send({from: this.account, gas:110000});
+
+    const { updateContactInfo } = this.meta.methods;
+    await updateContactInfo(userid, userName, phoneNumber, address, emailId).send({from: this.account, gas:110000});
+
+    this.setStatus("Update Transaction complete!");
+  },
+
+  deleteDemographyInfo: async function() {
+    const userid = document.getElementById("deleteId").value;
+
+    this.setStatus("Initiating Data Delete transaction... (please wait)");
+
+    const { deleteUser } = this.meta.methods;
+
+/* 'estimateGas()' web3.js: to find out gas consumption by 'deleteUser' while adding records/data into blockchain */
+/*
+    deleteUser(userid).estimateGas({gas:350000}, function(error, gasAmount){
+      if(gasAmount >= 350000)
+        console.log('Method ran out of gas');
+      if(gasAmount <= 350000)
+        console.log('Method is in gas limit');
+    });
+*/
+    await deleteUser(userid).send({from: this.account, gas:60000});
+
+    this.setStatus("Data Delete Transaction complete!");
+    this.refreshUserCount();
   },
 
   setStatus: function(message) {
