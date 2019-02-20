@@ -47,12 +47,21 @@ const App = {
     const address = document.getElementById("address").value;
     const emailId = document.getElementById("emailId").value;
 
-    console.log(userid);
-
     this.setStatus("Initiating transaction... (please wait)");
 
     const { addDemographyInfo } = this.meta.methods;
-    await addDemographyInfo(userid, userName, dob, gender, pob, ethnicity, phoneNumber, address, emailId).send({ from: this.account });
+
+/* 'estimateGas()' web3.js: to find out gas consumption by 'addDemographyInfo' while adding records/data into blockchain */
+/*
+    addDemographyInfo(userid, userName, dob, gender, pob, ethnicity, phoneNumber, address, emailId).estimateGas({gas:350000}, function(error, gasAmount){
+      console.log(gasAmount);
+      if(gasAmount >= 2100000)
+        console.log('Method ran out of gas');
+      if(gasAmount <= 2100000)
+        console.log('Method is in gas limit');
+    });
+*/
+    await addDemographyInfo(userid, userName, dob, gender, pob, ethnicity, phoneNumber, address, emailId).send({from: this.account, gas:350000});
 
     this.setStatus("Transaction complete!");
     this.refreshUserCount();
