@@ -69,6 +69,7 @@ const App = {
   },
 
   getDemographyInfo: async function() {
+    const self = this
 
     const id = document.getElementById('getId').value;
 
@@ -87,6 +88,12 @@ const App = {
 
       const ethnicity = document.getElementById('getEthnicity')
       ethnicity.innerHTML = value[3]
+
+      self.setStatus('User Demographic Info Fetched!')
+
+    }).catch(function (e) {
+      console.log(e)
+      self.setStatus('Error getting user Demographic records; see log.')
     })
 
     const { getContactInfo } = this.meta.methods;
@@ -102,9 +109,13 @@ const App = {
 
       const emailId = document.getElementById('getEmailId')
       emailId.innerHTML = value[3]
-    })
 
-    this.setStatus('User Demographic Info Fetched!')
+      self.setStatus('User Demographic Info Fetched!')
+
+    }).catch(function (e) {
+      console.log(e)
+      self.setStatus('Error getting user Demographic records; see log.')
+    })
   },
 
   updateDemographyInfo: async function() {
